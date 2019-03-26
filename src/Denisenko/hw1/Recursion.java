@@ -6,12 +6,11 @@ public class Recursion {
     //факториал числа рекурсией
     static int factorial(int num) {
 
-        int answer;
         if (num == 1) {
             return 1;
         }
-        answer = factorial(num - 1) * num;
-        return answer;
+        num *= factorial(num - 1) ;
+        return num;
 
     }
 

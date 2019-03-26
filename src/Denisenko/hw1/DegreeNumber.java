@@ -9,12 +9,16 @@ public class DegreeNumber {
         double answer = 1;
         if (involution < 0) {
 
-            involution = Math.abs(involution);
-            for (int i = 1; i <= involution; i++) {
+            try {
+                int moduleInvolution = Math.abs(involution);
+                for (int i = 1; i <= moduleInvolution; i++) {
 
-                answer *= number;
+                    answer *= number;
+                }
+                return 1 / answer;
+            }catch (NullPointerException e){
+                System.out.println("Error!!!");
             }
-            return 1 / answer;
 
         } else if (involution == 0) {
             return answer;
@@ -23,6 +27,7 @@ public class DegreeNumber {
             for (int i = 1; i <= involution; i++) {
 
                 answer *= number;
+
             }
 
         }
@@ -32,10 +37,10 @@ public class DegreeNumber {
 
     public static void main(String[] args) {
 
-        System.out.println("Введите число");
+        System.out.println("Enter number");
         Scanner scanner = new Scanner(System.in);
         int num = scanner.nextInt();
-        System.out.println("Введите степень,в которую возвести число");
+        System.out.println("Enter the degree to which the number should be raised.");
         int inv = scanner.nextInt();
         System.out.println(myPow(num, inv));
     }

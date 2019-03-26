@@ -7,13 +7,19 @@ public class PariMatch {
 
     static int basedMatch(int firstTeam, int secondTeam, int matchFirst, int matchSecond) {
 
-        return ((firstTeam == matchFirst) && (secondTeam == matchSecond)) ? 2 :
-                (((firstTeam > secondTeam) && (matchFirst > matchSecond)) ||
-                        ((secondTeam > firstTeam) && (matchSecond > matchFirst)) ? 1 : 0);
+        boolean compareMatchTeam = (firstTeam == matchFirst) && (secondTeam == matchSecond);
+        boolean compareTeams1 = firstTeam > secondTeam;
+        boolean compareTeams2 = secondTeam > firstTeam;
+        boolean compareMatch1 = matchFirst > matchSecond;
+        boolean compareMatch2 = matchSecond > matchFirst;
+
+        return compareMatchTeam ? 2 :
+                ((compareTeams1 && compareMatch1) ||
+                        (compareTeams2 && compareMatch2) ? 1 : 0);
     }
 
     public static void main(String[] args) {
-        System.out.println("Введите результат и то что поставил пользователь . Пример 0,2,1,1");
+        System.out.println("Enter the result and what the user has set. Example 0,2,1,1");
         Scanner scanner = new Scanner(System.in);
         String s = scanner.nextLine();
         String arr[] = s.split(",");
