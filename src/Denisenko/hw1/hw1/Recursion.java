@@ -1,4 +1,4 @@
-package Denisenko.hw1;
+package denisenko.hw1.hw1;
 
 public class Recursion {
 
@@ -9,7 +9,7 @@ public class Recursion {
         if (num == 1) {
             return 1;
         }
-        num *= factorial(num - 1) ;
+        num *= factorial(num - 1);
         return num;
 
     }

@@ -1,4 +1,4 @@
-package Denisenko.hw1;
+package denisenko.hw1.hw1;
 
 public class User implements Cloneable {
 
@@ -22,13 +22,9 @@ public class User implements Cloneable {
     }
 
     @Override
-    protected Object clone() {
-        User deepClone;
-        try {
-            deepClone = (User) super.clone();
-        } catch (CloneNotSupportedException e) {
-            return null;
-        }
+    protected Object clone() throws CloneNotSupportedException {
+
+        User deepClone = (User) super.clone();
         return deepClone;
     }
 

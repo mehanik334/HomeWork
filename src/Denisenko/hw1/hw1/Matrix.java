@@ -1,4 +1,4 @@
-package Denisenko.hw1;
+package denisenko.hw1.hw1;
 
 public class Matrix {
 
