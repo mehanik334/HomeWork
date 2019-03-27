@@ -1,4 +1,4 @@
-package Denisenko.hw1.hw2;
+package denisenko.hw2;
 
 import javax.swing.*;
 import java.awt.*;
