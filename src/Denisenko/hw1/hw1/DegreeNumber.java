@@ -4,34 +4,25 @@ import java.util.Scanner;
 
 public class DegreeNumber {
 
-    public static double helper(int invol,int num,double ans){
-
-        for (int i = 1; i <= invol; i++) {
-
-              ans*= num;
-        }
-        return ans;
-    }
-
     static double myPow(int number, int involution) {
 
         double answer = 1;
-        if (involution < 0) {
+        int moduleInvolution = Math.abs(involution);
 
-            try {
-                int moduleInvolution = Math.abs(involution);
-                return 1 / helper(moduleInvolution,number,answer);
-            }catch (NullPointerException e){
-                System.out.println("Error!!!");
+        for (int i = 1; i <= moduleInvolution; i++) {
+
+            if (involution < 0) {
+                answer*=number;
+                if(i == moduleInvolution){
+                    answer=1/answer;
+                }
+            } else if (involution == 0) {
+                return answer;
+            } else {
+                answer *= number;
             }
-
-        } else if (involution == 0) {
-            return answer;
-        } else {
-
-            answer = helper(involution,number,answer);
         }
-
+        
         return answer;
 
     }
