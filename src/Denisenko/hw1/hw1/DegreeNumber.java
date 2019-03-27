@@ -1,8 +1,17 @@
-package Denisenko.hw1;
+package Denisenko.hw1.hw1;
 
 import java.util.Scanner;
 
 public class DegreeNumber {
+
+    public static double helper(int invol,int num,double ans){
+
+        for (int i = 1; i <= invol; i++) {
+
+              ans*= num;
+        }
+        return ans;
+    }
 
     static double myPow(int number, int involution) {
 
@@ -11,11 +20,7 @@ public class DegreeNumber {
 
             try {
                 int moduleInvolution = Math.abs(involution);
-                for (int i = 1; i <= moduleInvolution; i++) {
-
-                    answer *= number;
-                }
-                return 1 / answer;
+                return 1 / helper(moduleInvolution,number,answer);
             }catch (NullPointerException e){
                 System.out.println("Error!!!");
             }
@@ -24,13 +29,9 @@ public class DegreeNumber {
             return answer;
         } else {
 
-            for (int i = 1; i <= involution; i++) {
-
-                answer *= number;
-
-            }
-
+            answer = helper(involution,number,answer);
         }
+
         return answer;
 
     }
