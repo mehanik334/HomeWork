@@ -1,5 +1,7 @@
 package denisenko.hw5;
 
+import java.util.HashMap;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -11,7 +13,10 @@ public class Main {
         System.out.println(bankVault);
         System.out.println(bankVault.get("Sasha D"));
         System.out.println(bankVault.remove("Alena Ch"));
-
+        bankVault.put("Sasha D",321);
+        System.out.println(bankVault);
+        bankVault.clear();
+        System.out.println(bankVault);
 
     }
 }

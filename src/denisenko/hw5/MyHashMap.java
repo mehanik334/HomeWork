@@ -2,12 +2,15 @@ package denisenko.hw5;
 
 public class MyHashMap<K, V> {
 
-    private int capasity = 8;
+    private static final int CAPASITY = 8;
+    private static final double INIT_LOAD_FACTOR = 0.8;
     private Node<K, V> table[];
-    int size = 0;
+    private int size;
+    private double loadFactor;
 
     public MyHashMap() {
-        this.table = new Node[capasity];
+        this.table = new Node[CAPASITY];
+        this.loadFactor = INIT_LOAD_FACTOR;
     }
 
     private class Node<K, V> {
@@ -28,21 +31,35 @@ public class MyHashMap<K, V> {
     }
 
     public final int hash(K key) {
-        return key.hashCode() * 16;
+        return Math.abs(key.hashCode() * 16);
     }
 
     public void raiseSize() {
-        Node<K, V> oldTable[] = table;
-        table = (Node<K, V>[]) new Node[size * 2];
-        for (int i = 0; i < oldTable.length; i++) {
-            table[i] = oldTable[i];
+
+        Node<K,V>[] newTable = (Node<K, V>[])new Node[size*2];
+        int currentSize = size;
+        int newIndex;
+        Node<K, V> nextNode;
+        for (int i = 0; i < table.length && currentSize > 0; i++) {
+            for (Node<K, V> e = table[i]; e != null; e = nextNode) {
+                newIndex = hash(e.key) % (size*2);
+                if (newTable[newIndex] == null) {
+                    newTable[newIndex] = e;
+                } else {
+                    newTable[newIndex].next = e;
+                }
+                nextNode = e.next;
+                e.next = null;
+                currentSize--;
+            }
         }
+        table = newTable;
+
     }
 
     public void put(K key, V value) {
 
-
-        if (size - 1 >= table.length) {
+        if(size>=loadFactor*CAPASITY){
             raiseSize();
         }
         int hash = hash(key);
@@ -66,7 +83,7 @@ public class MyHashMap<K, V> {
 
     }
 
-    public Node<K, V> get(K key) {
+    public Node<K, V> getNode(K key) {
 
         Node<K, V> node = table[hash(key)];
         while (node != null) {
@@ -77,16 +94,27 @@ public class MyHashMap<K, V> {
         return null;
     }
 
+    public  V get(K key) {
+
+        Node<K, V> node = table[hash(key)];
+        while (node != null) {
+            if (node.key.equals(key)) {
+                return node.value;
+            }
+        }
+        return null;
+    }
+
     public V remove(K key) {
 
-        Node<K, V> result = get(key);
+        Node<K, V> result = getNode(key);
         table[returnIndex(key)] = null;
         size--;
         return result.value;
 
     }
 
-    public int returnIndex(K key) {
+    private int returnIndex(K key) {
         for (int i = 0; i < table.length; i++) {
             if ((table[i] != null) && (table[hash(key)].key.equals(key))) {
                 return i;
@@ -100,7 +128,7 @@ public class MyHashMap<K, V> {
     }
 
     public void clear() {
-        table = (Node<K, V>[]) new Node[capasity];
+        table = (Node<K, V>[]) new Node[CAPASITY];
     }
 
     @Override
