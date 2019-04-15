@@ -1,12 +1,12 @@
 package denisenko.hw9;
 
-public class View<T> {
+public class Message<T> {
 
     private String from;
     private String to;
     private T context;
 
-    public View(String from, String to, T context) {
+    public Message(String from, String to, T context) {
         this.from = from;
         this.to = to;
         this.context = context;
