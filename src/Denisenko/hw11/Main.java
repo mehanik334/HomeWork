@@ -13,17 +13,12 @@ public class Main {
         Scanner scanner = new Scanner(new InputStreamReader(System.in, StandardCharsets.UTF_8));
         String inputStr = scanner.nextLine();
         String arr[] = inputStr.split("[^A-Za-zА-Яа-я]+");
-        List<String> list = Arrays.asList(arr);
-        Map<String, Long> map = list.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-        Map<String, Long> finalMap = new LinkedHashMap<>();
-        map.entrySet().stream().sorted(Map.Entry.<String, Long>comparingByValue()
-                .reversed()).forEachOrdered(e -> finalMap.put(e.getKey(), e.getValue()));
-        int count = 0;
-        for (String key : finalMap.keySet()) {
-            if (count < 10) {
-                count++;
-                System.out.println(key);
-            }
-        }
+        Map<String, List<String>> groupeArray = Arrays.stream(arr).map(String::toLowerCase)
+                .collect(Collectors.groupingBy(Function.identity()));
+        groupeArray.entrySet().stream()
+                .sorted((i1, i2) -> i2.getValue().size() - i1.getValue().size())
+                .limit(10)
+                .forEach(w -> System.out.println(w.getKey()));
+
     }
 }
