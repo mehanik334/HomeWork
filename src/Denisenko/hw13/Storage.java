@@ -5,6 +5,6 @@ import java.util.List;
 
 public class Storage {
 
-    public static final List<User> users = new ArrayList<User>();
+    public static final List<User> USERS = new ArrayList<User>();
 
 }

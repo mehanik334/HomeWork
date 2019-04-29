@@ -12,28 +12,16 @@ import java.io.PrintWriter;
 public class RegistServlet extends HttpServlet {
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
-        PrintWriter out = resp.getWriter();
 
-        out.println("<!DOCTYPE HTML>");
-        out.println("<html>\n" +
-                "  <head>\n" +
-                "    <title>Регистрация</title>\n" +
-                "  </head>\n" +
-                "  <body>\n");
-        out.println("<form action = \"/reg/done\" method=\"post\">");
-        out.println("Введите логин");
-        out.println("<input type=\"text\" name=\"loginUser\"/>");
-        out.println("Введите пароль");
-        out.println("<input type=\"text\" name=\"loginPassword\"/>");
-        out.println("<input type = \"submit\" value = \" Регистрация\">");
-        out.println("</form>");
-        out.println("</body>\n" +
-                "</html>\n");
-
+        String login = req.getParameter("loginUser");
+        String password = req.getParameter("loginPassword");
+        if (login != null && password != null) {
+            resp.getWriter().println("Пользователь " + login + " зарегестрирован");
+        }
+        Storage.USERS.add(new User(login, password));
     }
 }
