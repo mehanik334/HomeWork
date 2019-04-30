@@ -1,9 +1,7 @@
 package denisenko.hw12.map;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
-import static org.junit.Assert.*;
 
 public class MyHashMapTest {
 
@@ -20,7 +18,7 @@ public class MyHashMapTest {
     public void testHash() {
         Integer oneHash = 1;
         int hashOne = Math.abs(oneHash.hashCode() * 16);
-        assertEquals(hashOne, testMap.hash(1));
+        Assert.assertEquals(hashOne, testMap.hash(1));
     }
 
     @Test
@@ -28,40 +26,38 @@ public class MyHashMapTest {
         int oldSize = testMap.size();
         testMap.raiseSize();
         int newSize = testMap.size();
-        assertEquals(oldSize * 2, newSize);
+        Assert.assertEquals(oldSize * 2, newSize);
     }
 
     @Test
     public void testPut() {
         testMap.put(4, "c");
-        assertEquals("c", testMap.get(4));
+        Assert.assertEquals("c", testMap.get(4));
     }
 
     @Test
     public void testGetNode() {
-        assertTrue(testMap.getNode(1) != null);
+        Assert.assertTrue(testMap.getNode(1) != null);
     }
 
     @Test
     public void testGet() {
-        assertEquals("a", testMap.get(1));
+        Assert.assertEquals("a", testMap.get(1));
     }
 
     @Test
     public void testRemove() {
-        assertEquals("b", testMap.remove(2));
+        Assert.assertEquals("b", testMap.remove(2));
     }
 
     @Test
     public void testSize() {
-        assertEquals(2, testMap.size());
+        Assert.assertEquals(2, testMap.size());
     }
 
     @Test
     public void testClear() {
         testMap.clear();
-        assertEquals(0, testMap.size());
+        Assert.assertEquals(0, testMap.size());
     }
-
-
 }

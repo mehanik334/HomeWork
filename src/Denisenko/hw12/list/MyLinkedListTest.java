@@ -1,10 +1,7 @@
 package denisenko.hw12.list;
 
-import denisenko.hw12.list.MyLinkedList.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
-import static org.junit.Assert.*;
 
 public class MyLinkedListTest {
 
@@ -19,58 +16,55 @@ public class MyLinkedListTest {
 
     @Test
     public void testAdd() {
-
-        assertEquals("a", testList.get(0));
+        Assert.assertEquals("a", testList.get(0));
     }
 
     @Test
     public void testAdd1() {
         testList.add("x", 0);
         testList.add("y", 1);
-        assertEquals("y", testList.get(1));
-
+        Assert.assertEquals("y", testList.get(1));
     }
 
     @Test
     public void testAddAll() {
-
         MyLinkedList<String> test2 = new MyLinkedList<>();
         test2.add("z");
         test2.add("x");
         testList.addAll(test2);
-        assertEquals(4, testList.size());
+        Assert.assertEquals(4, testList.size());
     }
 
     @Test
     public void testGet() {
-        assertEquals("a", testList.get(0));
+        Assert.assertEquals("a", testList.get(0));
     }
 
     @Test
     public void testSet() {
         testList.set("x", 1);
-        assertEquals("x", testList.get(1));
+        Assert.assertEquals("x", testList.get(1));
     }
 
     @Test
     public void testRemove() {
         testList.remove(1);
-        assertEquals(1, testList.size());
+        Assert.assertEquals(1, testList.size());
     }
 
     @Test
     public void testRemove1() {
         testList.remove("b");
-        assertEquals(1, testList.size());
+        Assert.assertEquals(1, testList.size());
     }
 
     @Test
     public void testSize() {
-        assertEquals(2, testList.size());
+        Assert.assertEquals(2, testList.size());
     }
 
     @Test
     public void isEmpty() {
-        assertFalse(testList.size() == 0);
+        Assert.assertFalse(testList.size() == 0);
     }
 }
