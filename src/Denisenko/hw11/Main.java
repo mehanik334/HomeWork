@@ -16,9 +16,9 @@ public class Main {
         Map<String, List<String>> groupeArray = Arrays.stream(arr).map(String::toLowerCase)
                 .collect(Collectors.groupingBy(Function.identity()));
         groupeArray.entrySet().stream()
+                .sorted(Comparator.comparing(o1 -> o1.getKey()))
                 .sorted((i1, i2) -> i2.getValue().size() - i1.getValue().size())
                 .limit(10)
                 .forEach(w -> System.out.println(w.getKey()));
-
     }
 }
