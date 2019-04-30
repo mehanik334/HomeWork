@@ -1,10 +1,12 @@
 package denisenko.hw12.list;
 
+import denisenko.hw4.MyList;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        MyLinkedList<String> list = new MyLinkedList<>();
+        MyList<String> list = new MyLinkedList<>();
         list.add("S");
         list.add("t");
         list.add("r");
@@ -30,14 +32,12 @@ public class Main {
         System.out.println(list.size());
         System.out.println("-------");
         System.out.println(list.isEmpty());
-
     }
 
-    public static void showLinked(MyLinkedList list) {
+    public static void showLinked(MyList list) {
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i));
         }
-
     }
 
 }

@@ -8,16 +8,15 @@ public class MyArrayList<T> implements MyList<T> {
 
     private T arrayValue[];
     private int size = 0;
-    private int capasity = 7;
+    private int capacity = 7;
     private T d;
 
-
     public MyArrayList() {
-        this.arrayValue = (T[]) new Object[capasity];
+        this.arrayValue = (T[]) new Object[capacity];
     }
 
     public int getCapasity() {
-        return capasity;
+        return capacity;
     }
 
     public T[] getArrayValue() {
@@ -25,10 +24,8 @@ public class MyArrayList<T> implements MyList<T> {
     }
 
     public void additionSize() {
-
-        capasity = capasity * 3 / 2;
-        arrayValue = Arrays.copyOf(arrayValue, capasity);
-
+        capacity = capacity * 3 / 2;
+        arrayValue = Arrays.copyOf(arrayValue, capacity);
     }
 
     public int getSize() {
@@ -37,120 +34,86 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void add(T value) {
-
-        if (this.size == capasity) {
-
+        if (this.size == capacity) {
             additionSize();
-
         }
-
         arrayValue[size] = value;
         size++;
-
     }
 
     @Override
     public void add(T value, int index) {
-
-        if (size == capasity) {
-
+        checkIndex(index);
+        if (size == capacity) {
             additionSize();
-
         }
-
         System.arraycopy(arrayValue, index, arrayValue, index + 1, size - index);
         arrayValue[index] = value;
         size++;
-
     }
 
     @Override
     public void addAll(MyList<T> list) {
-
         if (!list.isEmpty()) {
-
-            if (capasity < this.size + list.size()) {
-
-                capasity += list.size();
+            if (capacity < this.size + list.size()) {
+                capacity += list.size();
                 additionSize();
-
             }
-
-
             for (int i = getSize() + 1, j = 0; i < list.size(); i++, j++) {
-
                 getArrayValue()[i] = list.get(j);
-
             }
         } else {
-
             System.out.println("List is empty");
-
         }
     }
 
     @Override
     public T get(int index) {
-
+        checkIndex(index);
         return this.arrayValue[index];
-
     }
 
     @Override
     public void set(T value, int index) {
-
+        checkIndex(index);
         arrayValue[index] = value;
-
     }
 
     @Override
     public T remove(int index) {
-
+        checkIndex(index);
         for (int i = index; i < size; i++) {
-
             arrayValue[i] = arrayValue[i + 1];
             arrayValue[size] = null;
-
         }
-
         size--;
         return get(index);
     }
 
     @Override
     public T remove(T t) {
-
         for (int i = 0; i < size; i++) {
-
             if (t.equals(arrayValue[i])) {
-
                 d = remove(i);
-
             }
         }
-
         return d;
     }
 
     @Override
     public int size() {
-
         return size;
-
     }
 
     @Override
     public boolean isEmpty() {
-
-        if (size == 0) {
-
-            return true;
-
-        }
-
-        return false;
-
+        return size == 0;
     }
 
+    public void checkIndex(int index) {
+        if (index < 0 || index > size - 1) {
+            throw new IndexOutOfBoundsException("Index must be more than 0 and less than size - 1");
+        }
+    }
 }
 

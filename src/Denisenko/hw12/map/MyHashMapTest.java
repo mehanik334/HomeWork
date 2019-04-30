@@ -16,8 +16,8 @@ public class MyHashMapTest {
 
     @Test
     public void testHash() {
-        Integer oneHash = 1;
-        int hashOne = Math.abs(oneHash.hashCode() * 16);
+        Integer one = 1;
+        int hashOne = Math.abs(one.hashCode() * 16);
         Assert.assertEquals(hashOne, testMap.hash(1));
     }
 

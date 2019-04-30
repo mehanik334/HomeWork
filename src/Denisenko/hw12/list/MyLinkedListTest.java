@@ -14,7 +14,7 @@ public class MyLinkedListTest {
         testList.add("b");
     }
 
-    @Test
+    @Test(expected = IndexOutOfBoundsException.class)
     public void testAdd() {
         Assert.assertEquals("a", testList.get(0));
     }
@@ -35,18 +35,18 @@ public class MyLinkedListTest {
         Assert.assertEquals(4, testList.size());
     }
 
-    @Test
+    @Test(expected = IndexOutOfBoundsException.class)
     public void testGet() {
         Assert.assertEquals("a", testList.get(0));
     }
 
-    @Test
+    @Test(expected = IndexOutOfBoundsException.class)
     public void testSet() {
         testList.set("x", 1);
         Assert.assertEquals("x", testList.get(1));
     }
 
-    @Test
+    @Test(expected = IndexOutOfBoundsException.class)
     public void testRemove() {
         testList.remove(1);
         Assert.assertEquals(1, testList.size());

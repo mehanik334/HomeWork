@@ -59,8 +59,8 @@ public class MyLinkedList<T> implements MyList<T> {
         size++;
     }
 
-    public void checkIndex(int index)  {
-        if(index<0 || index > size){
+    public void checkIndex(int index) {
+        if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Index mast be positiv and more size");
         }
     }
