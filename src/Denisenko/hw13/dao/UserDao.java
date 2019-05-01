@@ -1,8 +1,11 @@
 package denisenko.hw13.dao;
 
 import denisenko.hw13.model.User;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-import java.sql.*;
 
 public class UserDao {
 
