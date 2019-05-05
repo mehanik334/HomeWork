@@ -20,6 +20,6 @@ public class DeleteServlet extends HttpServlet {
         String login = request.getParameter("login");
         userDao.deleteUser(new User(login));
         request.setAttribute("message", message);
-        request.getRequestDispatcher("homePage.jsp").forward(request, response);
+        request.getRequestDispatcher("adminPage.jsp").forward(request, response);
     }
 }

@@ -4,7 +4,7 @@
     <title>Регистрация</title>
 </head>
 <body>
-<form action="/reg" method="post" \>
+<form action="reg" method="post" \>
     Введите логин <input type="text" name="loginUser"/>
     Введите пароль <input type="text" name="loginPassword"/>
     <input type="submit" value=" Регистрация">

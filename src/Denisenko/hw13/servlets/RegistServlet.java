@@ -25,10 +25,10 @@ public class RegistServlet extends HttpServlet {
         String login = req.getParameter("loginUser");
         String password = req.getParameter("loginPassword");
         if (login != null && password != null) {
-            userDao.addUser(new User(login, password));
+            userDao.addUser(new User(login, password, "user"));
             message = "Поздравляем , " + login + ", вы зарегестрированы";
             req.setAttribute("message", message);
-            req.getRequestDispatcher("homePage.jsp").forward(req, resp);
+            req.getRequestDispatcher("login.jsp").forward(req, resp);
         }
     }
 }

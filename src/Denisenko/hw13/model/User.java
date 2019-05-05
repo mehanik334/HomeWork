@@ -7,6 +7,7 @@ public class User {
     private Long id;
     private String login;
     private String password;
+    private String role;
 
     public User() {
     }
@@ -20,10 +21,31 @@ public class User {
         this.password = password;
     }
 
+    public User(String login, String password, String role) {
+        this.login = login;
+        this.password = password;
+        this.role = role;
+    }
+
     public User(Long id, String login, String password) {
         this.id = id;
         this.login = login;
         this.password = password;
+    }
+
+    public User(Long id, String login, String password, String role) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Long getId() {
@@ -57,11 +79,12 @@ public class User {
         User user = (User) o;
         return Objects.equals(getId(), user.getId()) &&
                 Objects.equals(getLogin(), user.getLogin()) &&
-                Objects.equals(getPassword(), user.getPassword());
+                Objects.equals(getPassword(), user.getPassword()) &&
+                Objects.equals(getRole(), user.getRole());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getLogin(), getPassword());
+        return Objects.hash(getId(), getLogin(), getPassword(), getRole());
     }
 }

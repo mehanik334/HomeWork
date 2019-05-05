@@ -23,10 +23,15 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("loginPassword");
         User userDB = userDao.getUser(login, password).get();
         if (userDB.getPassword().equals(password) && userDB.getLogin().equals(login)) {
-
-            message = "Добро пожаловать ";
-            req.setAttribute("message", message);
-            req.getRequestDispatcher("homePage.jsp").forward(req, resp);
+            req.getSession().setAttribute("user", userDB);
+            if (userDB.getRole().equals("user")) {
+                message = "Привет пользователь " + login;
+                req.setAttribute("message", message);
+                req.getRequestDispatcher("userPage.jsp").forward(req, resp);
+            } else if (userDB.getRole().equals("admin")) {
+                req.setAttribute("login", login);
+                req.getRequestDispatcher("/admin").forward(req, resp);
+            }
         }
     }
 }

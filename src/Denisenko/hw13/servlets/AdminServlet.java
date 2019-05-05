@@ -9,24 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 
-@WebServlet(value = "/edit")
-public class EditServlet extends HttpServlet {
+@WebServlet(value = "/admin")
+public class AdminServlet extends HttpServlet {
 
     private static final UserDao userDao = new UserDao();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String message = "Пароль изменен";
-        String login = request.getParameter("login");
-        String newPassword = request.getParameter("password");
-        userDao.updateUser(new User(login), newPassword);
+        String message = "Привет администратор " + request.getParameter("login");
         request.setAttribute("message", message);
+        List<User> users = userDao.getAllUsers().get();
+        request.setAttribute("users", users);
         request.getRequestDispatcher("adminPage.jsp").forward(request, response);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("login", request.getParameter("login"));
-        request.getRequestDispatcher("edit.jsp").forward(request, response);
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
     }
 }
