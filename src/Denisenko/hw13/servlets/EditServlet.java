@@ -17,15 +17,12 @@ public class EditServlet extends HttpServlet {
     private static final UserDao userDao = new UserDao();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html");
-        response.setCharacterEncoding("UTF-8");
-
-        PrintWriter printWriter = response.getWriter();
+        String message = "Пароль изменен";
         String login = request.getParameter("login");
         String newPassword = request.getParameter("password");
         userDao.updateUser(new User(login),newPassword);
-        printWriter.println("Пароль изменен успешно!");
+        request.setAttribute("message",message);
+        request.getRequestDispatcher("homePage.jsp").forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

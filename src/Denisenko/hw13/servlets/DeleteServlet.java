@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet(value = "/delete")
 public class DeleteServlet extends HttpServlet {
@@ -17,13 +16,10 @@ public class DeleteServlet extends HttpServlet {
     private static final UserDao userDao = new UserDao();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html");
-        response.setCharacterEncoding("UTF-8");
-
-        PrintWriter printWriter = response.getWriter();
+        String message = "Пользователь успешно удален!!!";
         String login = request.getParameter("login");
         userDao.deleteUser(new User(login));
-        printWriter.println("Пользователь успешно удален!!!");
+        request.setAttribute("message", message);
+        request.getRequestDispatcher("homePage.jsp").forward(request, response);
     }
 }

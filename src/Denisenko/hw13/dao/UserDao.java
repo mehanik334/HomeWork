@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 public class UserDao {
@@ -26,7 +27,7 @@ public class UserDao {
         }
     }
 
-    public User getUser(String login, String password) {
+    public Optional<User> getUser(String login, String password) {
         try {
             String sql = "SELECT * FROM users WHERE login = ? AND password = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -38,12 +39,12 @@ public class UserDao {
                 String userLogin = resultSet.getString("login");
                 String userPassword = resultSet.getString("password");
                 User userDb = new User(userId, userLogin, userPassword);
-                return userDb;
+                return Optional.of(userDb);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return Optional.empty();
     }
 
     public void updateUser(User user, String newPassword) {
@@ -79,7 +80,7 @@ public class UserDao {
         }
     }
 
-    public List<User> getAllUsers() {
+    public Optional<List<User>> getAllUsers() {
         try {
             List<User> allUsers = new ArrayList<>();
             String sql = "SELECT * FROM users";
@@ -90,10 +91,10 @@ public class UserDao {
                         , resultSet.getString("login")
                         , resultSet.getString("password")));
             }
-            return allUsers;
+            return Optional.of(allUsers);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return Optional.empty();
     }
 }
