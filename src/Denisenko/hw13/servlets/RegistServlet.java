@@ -21,11 +21,14 @@ public class RegistServlet extends HttpServlet {
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
 
+        String message;
         String login = req.getParameter("loginUser");
         String password = req.getParameter("loginPassword");
         if (login != null && password != null) {
             userDao.addUser(new User(login, password));
-            resp.getWriter().println("Пользователь " + login + " зарегестрирован");
+            message = "Поздравляем , " + login + ", вы зарегестрированы";
+            req.setAttribute("message", message);
+            req.getRequestDispatcher("homePage.jsp").forward(req, resp);
         }
     }
 }

@@ -2,6 +2,7 @@ package denisenko.hw13.servlets;
 
 import denisenko.hw13.dao.UserDao;
 import denisenko.hw13.model.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,12 +23,16 @@ public class LoginServlet extends HttpServlet {
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
 
+        String message;
         PrintWriter out = resp.getWriter();
         String login = req.getParameter("loginUser");
         String password = req.getParameter("loginPassword");
         User userDB = userDao.getUser(login, password);
         if (userDB.getPassword().equals(password) && userDB.getLogin().equals(login)) {
-            out.println("Добро пожаловать ");
+
+            message = "Добро пожаловать ";
+            req.setAttribute("message", message);
+            req.getRequestDispatcher("homePage.jsp").forward(req, resp);
         } else {
             out.println("Неправильно введен логин или пароль");
         }
