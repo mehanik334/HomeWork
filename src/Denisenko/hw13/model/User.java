@@ -7,7 +7,7 @@ public class User {
     private Long id;
     private String login;
     private String password;
-    private String role;
+    private Role role;
 
     public User() {
     }
@@ -21,7 +21,7 @@ public class User {
         this.password = password;
     }
 
-    public User(String login, String password, String role) {
+    public User(String login, String password, Role role) {
         this.login = login;
         this.password = password;
         this.role = role;
@@ -33,18 +33,18 @@ public class User {
         this.password = password;
     }
 
-    public User(Long id, String login, String password, String role) {
+    public User(Long id, String login, String password, Role role) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.role = role;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -80,11 +80,21 @@ public class User {
         return Objects.equals(getId(), user.getId()) &&
                 Objects.equals(getLogin(), user.getLogin()) &&
                 Objects.equals(getPassword(), user.getPassword()) &&
-                Objects.equals(getRole(), user.getRole());
+                getRole() == user.getRole();
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getLogin(), getPassword(), getRole());
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
     }
 }

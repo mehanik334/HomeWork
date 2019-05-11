@@ -25,7 +25,7 @@
             <tr>
                 <td><c:out value="${user.getLogin()}"/></td>
                 <td><c:out value="${user.getPassword()}"/></td>
-                <td><c:out value="${user.getRole()}"/></td>
+                <td><c:out value="${user.getRole().getValue()}"/></td>
                 <td><a href='edit?login=${user.getLogin()}'>edit</a></td>
                 <td><a href='delete?login=${user.getLogin()}'>delete</a></td>
             </tr>

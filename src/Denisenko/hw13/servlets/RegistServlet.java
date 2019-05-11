@@ -1,7 +1,9 @@
 package denisenko.hw13.servlets;
 
 import denisenko.hw13.dao.UserDao;
+import denisenko.hw13.model.Role;
 import denisenko.hw13.model.User;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +16,7 @@ import java.io.IOException;
 public class RegistServlet extends HttpServlet {
 
     private static final UserDao userDao = new UserDao();
+    private static final Logger LOGGER = Logger.getLogger(RegistServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,8 +27,10 @@ public class RegistServlet extends HttpServlet {
         String message;
         String login = req.getParameter("loginUser");
         String password = req.getParameter("loginPassword");
+        LOGGER.debug("Validate on null login and password");
         if (login != null && password != null) {
-            userDao.addUser(new User(login, password, "user"));
+            LOGGER.debug("Add user to db");
+            userDao.addUser(new User(login, password, Role.USER));
             message = "Поздравляем , " + login + ", вы зарегестрированы";
             req.setAttribute("message", message);
             req.getRequestDispatcher("login.jsp").forward(req, resp);

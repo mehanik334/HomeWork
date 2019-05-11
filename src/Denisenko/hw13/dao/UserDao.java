@@ -1,5 +1,6 @@
 package denisenko.hw13.dao;
 
+import denisenko.hw13.model.Role;
 import denisenko.hw13.model.User;
 
 import java.sql.Connection;
@@ -21,7 +22,7 @@ public class UserDao {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
-            statement.setString(3, user.getRole());
+            statement.setString(3, user.getRole().getValue());
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,7 +40,7 @@ public class UserDao {
                 Long userId = resultSet.getLong(1);
                 String userLogin = resultSet.getString("login");
                 String userPassword = resultSet.getString("password");
-                String userRole = resultSet.getString("role");
+                Role userRole = Role.fromString(resultSet.getString("role"));
                 User userDb = new User(userId, userLogin, userPassword, userRole);
                 return Optional.of(userDb);
             }
@@ -92,7 +93,7 @@ public class UserDao {
                 allUsers.add(new User(resultSet.getLong("id")
                         , resultSet.getString("login")
                         , resultSet.getString("password")
-                        , resultSet.getString("role")));
+                        , Role.fromString(resultSet.getString("role"))));
             }
             return Optional.of(allUsers);
         } catch (SQLException e) {
