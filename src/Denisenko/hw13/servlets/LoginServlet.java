@@ -31,10 +31,10 @@ public class LoginServlet extends HttpServlet {
             req.getSession().setAttribute("user", userDB);
             LOGGER.debug("Verification " + login + " on role");
             if (userDB.getRole().getValue().equals("user")) {
-                LOGGER.debug(login + " is user and forward to userPage.jsp");
+                LOGGER.debug(login + " is user and forward to marketPlace.jsp");
                 message = "Привет пользователь " + login;
                 req.setAttribute("message", message);
-                req.getRequestDispatcher("userPage.jsp").forward(req, resp);
+                req.getRequestDispatcher("/goods").forward(req, resp);
             } else if (userDB.getRole().getValue().equals("admin")) {
                 LOGGER.debug(login + " is admin and forward to adminPage.jsp");
                 req.setAttribute("login", login);

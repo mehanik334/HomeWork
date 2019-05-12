@@ -6,6 +6,7 @@ public class User {
 
     private Long id;
     private String login;
+    private String email;
     private String password;
     private Role role;
 
@@ -21,23 +22,33 @@ public class User {
         this.password = password;
     }
 
+    public User(Long id, String login, String email, String password, Role role) {
+        this.id = id;
+        this.login = login;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    public User(String login, String email, String password, Role role) {
+        this.login = login;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
     public User(String login, String password, Role role) {
         this.login = login;
         this.password = password;
         this.role = role;
     }
 
-    public User(Long id, String login, String password) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
+    public String getEmail() {
+        return email;
     }
 
-    public User(Long id, String login, String password, Role role) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-        this.role = role;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Role getRole() {
@@ -79,13 +90,14 @@ public class User {
         User user = (User) o;
         return Objects.equals(getId(), user.getId()) &&
                 Objects.equals(getLogin(), user.getLogin()) &&
+                Objects.equals(getEmail(), user.getEmail()) &&
                 Objects.equals(getPassword(), user.getPassword()) &&
                 getRole() == user.getRole();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getLogin(), getPassword(), getRole());
+        return Objects.hash(getId(), getLogin(), getEmail(), getPassword(), getRole());
     }
 
     @Override
@@ -93,6 +105,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
                 '}';

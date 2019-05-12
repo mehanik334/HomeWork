@@ -18,11 +18,12 @@ public class UserDao {
 
     public void addUser(User user) {
         try {
-            String sql = "INSERT INTO users(login,password,role) values (?,?,?)";
+            String sql = "INSERT INTO users(login,password,role,email) values (?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getRole().getValue());
+            statement.setString(4, user.getEmail());
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -41,7 +42,8 @@ public class UserDao {
                 String userLogin = resultSet.getString("login");
                 String userPassword = resultSet.getString("password");
                 Role userRole = Role.fromString(resultSet.getString("role"));
-                User userDb = new User(userId, userLogin, userPassword, userRole);
+                String email = resultSet.getString("email");
+                User userDb = new User(userId, userLogin, email, userPassword, userRole);
                 return Optional.of(userDb);
             }
         } catch (SQLException e) {
@@ -92,6 +94,7 @@ public class UserDao {
             while (resultSet.next()) {
                 allUsers.add(new User(resultSet.getLong("id")
                         , resultSet.getString("login")
+                        , resultSet.getString("email")
                         , resultSet.getString("password")
                         , Role.fromString(resultSet.getString("role"))));
             }
