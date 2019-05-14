@@ -2,6 +2,7 @@ package denisenko.hw13.servlets;
 
 import denisenko.hw13.dao.UserDao;
 import denisenko.hw13.model.User;
+import denisenko.hw13.utils.HashUtils;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -25,9 +26,10 @@ public class LoginServlet extends HttpServlet {
         String login = req.getParameter("loginUser");
         String password = req.getParameter("loginPassword");
         LOGGER.debug("Get user " + login + " from DB");
-        User userDB = userDao.getUser(login, password).get();
+        User userDB = userDao.getUser(login).get();
+        String passwordHash = HashUtils.getSHA512SecurePassword(password, userDB.getSalt());
         LOGGER.debug("Equals login and password user  from request");
-        if (userDB.getPassword().equals(password) && userDB.getLogin().equals(login)) {
+        if (userDB.getPassword().equals(passwordHash) && userDB.getLogin().equals(login)) {
             req.getSession().setAttribute("user", userDB);
             LOGGER.debug("Verification " + login + " on role");
             if (userDB.getRole().getValue().equals("user")) {

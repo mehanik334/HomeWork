@@ -24,6 +24,6 @@ public class DeleteServlet extends HttpServlet {
         userDao.deleteUser(new User(login));
         request.setAttribute("message", message);
         LOGGER.debug("Forward to adminPage.jsp");
-        request.getRequestDispatcher("adminPage.jsp").forward(request, response);
+        request.getRequestDispatcher("/AdminServlet").forward(request, response);
     }
 }

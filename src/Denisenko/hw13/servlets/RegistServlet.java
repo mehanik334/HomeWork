@@ -3,6 +3,7 @@ package denisenko.hw13.servlets;
 import denisenko.hw13.dao.UserDao;
 import denisenko.hw13.model.Role;
 import denisenko.hw13.model.User;
+import denisenko.hw13.utils.HashUtils;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -30,7 +31,7 @@ public class RegistServlet extends HttpServlet {
         LOGGER.debug("Validate on null login and password");
         if (login != null && password != null) {
             LOGGER.debug("Add user to db");
-            userDao.addUser(new User(login, password, Role.USER));
+            userDao.addUser(new User(login, "mail@mail.ri", password, Role.ADMIN));
             message = "Поздравляем , " + login + ", вы зарегестрированы";
             req.setAttribute("message", message);
             req.getRequestDispatcher("login.jsp").forward(req, resp);

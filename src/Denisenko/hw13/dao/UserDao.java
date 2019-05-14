@@ -2,6 +2,7 @@ package denisenko.hw13.dao;
 
 import denisenko.hw13.model.Role;
 import denisenko.hw13.model.User;
+import denisenko.hw13.utils.HashUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,25 +18,26 @@ public class UserDao {
     private Connection connection = DBConnector.connect();
 
     public void addUser(User user) {
+
         try {
-            String sql = "INSERT INTO users(login,password,role,email) values (?,?,?,?)";
+            String sql = "INSERT INTO users(login,password,role,email,salt) values (?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, user.getLogin());
-            statement.setString(2, user.getPassword());
+            statement.setString(2, HashUtils.getSHA512SecurePassword(user.getPassword(), user.getSalt()));
             statement.setString(3, user.getRole().getValue());
             statement.setString(4, user.getEmail());
+            statement.setString(5, user.getSalt());
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public Optional<User> getUser(String login, String password) {
+    public Optional<User> getUser(String login) {
         try {
-            String sql = "SELECT * FROM users WHERE login = ? AND password = ?";
+            String sql = "SELECT * FROM users WHERE login = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, login);
-            statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 Long userId = resultSet.getLong(1);
@@ -43,7 +45,8 @@ public class UserDao {
                 String userPassword = resultSet.getString("password");
                 Role userRole = Role.fromString(resultSet.getString("role"));
                 String email = resultSet.getString("email");
-                User userDb = new User(userId, userLogin, email, userPassword, userRole);
+                String salt = resultSet.getString("salt");
+                User userDb = new User(userId, userLogin, email, userPassword, userRole, salt);
                 return Optional.of(userDb);
             }
         } catch (SQLException e) {
@@ -96,7 +99,8 @@ public class UserDao {
                         , resultSet.getString("login")
                         , resultSet.getString("email")
                         , resultSet.getString("password")
-                        , Role.fromString(resultSet.getString("role"))));
+                        , Role.fromString(resultSet.getString("role"))
+                        , resultSet.getString("salt")));
             }
             return Optional.of(allUsers);
         } catch (SQLException e) {

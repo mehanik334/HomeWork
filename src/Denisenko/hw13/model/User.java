@@ -1,5 +1,7 @@
 package denisenko.hw13.model;
 
+import denisenko.hw13.utils.HashUtils;
+
 import java.util.Objects;
 
 public class User {
@@ -9,6 +11,7 @@ public class User {
     private String email;
     private String password;
     private Role role;
+    private String salt;
 
     public User() {
     }
@@ -22,12 +25,19 @@ public class User {
         this.password = password;
     }
 
-    public User(Long id, String login, String email, String password, Role role) {
+    public User(String login, String password, Role role) {
+        this.login = login;
+        this.password = password;
+        this.role = role;
+    }
+
+    public User(Long id, String login, String email, String password, Role role, String salt) {
         this.id = id;
         this.login = login;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.salt = salt;
     }
 
     public User(String login, String email, String password, Role role) {
@@ -35,12 +45,14 @@ public class User {
         this.email = email;
         this.password = password;
         this.role = role;
+        this.salt = HashUtils.getRandomSalt();
     }
 
-    public User(String login, String password, Role role) {
+    public User(String login, String password, Role role, String salt) {
         this.login = login;
         this.password = password;
         this.role = role;
+        this.salt = salt;
     }
 
     public String getEmail() {
@@ -83,6 +95,14 @@ public class User {
         this.password = password;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,12 +112,13 @@ public class User {
                 Objects.equals(getLogin(), user.getLogin()) &&
                 Objects.equals(getEmail(), user.getEmail()) &&
                 Objects.equals(getPassword(), user.getPassword()) &&
-                getRole() == user.getRole();
+                getRole() == user.getRole() &&
+                Objects.equals(getSalt(), user.getSalt());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getLogin(), getEmail(), getPassword(), getRole());
+        return Objects.hash(getId(), getLogin(), getEmail(), getPassword(), getRole(), getSalt());
     }
 
     @Override
@@ -108,6 +129,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", salt='" + salt + '\'' +
                 '}';
     }
 }
