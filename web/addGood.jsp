@@ -12,7 +12,7 @@
     <title>Add good</title>
 </head>
 <body>
-<form action="addgood" method="post" \>
+<form action="addGood" method="post" \>
     Введите название товара <input type="text" name="nameGood"/>
     Введите описание <input type="text" name="description"/>
     Введите цену <input type="text" name="price">
