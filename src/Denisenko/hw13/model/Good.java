@@ -1,13 +1,24 @@
 package denisenko.hw13.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "goods")
 public class Good {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private double price;
+    @Column(name = "name")
     private String name;
+    @Column(name = "description")
     private String description;
+    @Column(name = "price")
+    private double price;
+
+    public Good() {
+    }
 
     public Good(double price, String name, String description) {
         this.price = price;

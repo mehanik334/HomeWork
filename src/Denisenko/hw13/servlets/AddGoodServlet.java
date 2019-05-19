@@ -1,6 +1,6 @@
 package denisenko.hw13.servlets;
 
-import denisenko.hw13.dao.GoodDao;
+import denisenko.hw13.dao.GoodDaoHibernateImpl;
 import denisenko.hw13.model.Good;
 
 import javax.servlet.ServletException;
@@ -14,15 +14,11 @@ import java.io.IOException;
 public class AddGoodServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html");
-        response.setCharacterEncoding("UTF-8");
-
         String nameGoodHtml = request.getParameter("nameGood");
         String descriptionHtml = request.getParameter("description");
         double priceHtml = Double.parseDouble(request.getParameter("price"));
-        GoodDao goodDao = new GoodDao();
-        goodDao.addGood(new Good(priceHtml, nameGoodHtml, descriptionHtml));
+        GoodDaoHibernateImpl goodDaoHibernate = new GoodDaoHibernateImpl();
+        goodDaoHibernate.addGood(new Good(priceHtml, nameGoodHtml, descriptionHtml));
         request.getRequestDispatcher("adminPage.jsp").forward(request, response);
     }
 

@@ -26,8 +26,8 @@
                 <td><c:out value="${user.getLogin()}"/></td>
                 <td><c:out value="${user.getPassword()}"/></td>
                 <td><c:out value="${user.getRole().getValue()}"/></td>
-                <td><a href='edit?login=${user.getLogin()}'>edit</a></td>
-                <td><a href='delete?login=${user.getLogin()}'>delete</a></td>
+                <td><a href='edit?id=${user.getId()}'>edit</a></td>
+                <td><a href='delete?id=${user.getId()}'>delete</a></td>
             </tr>
         </c:forEach>
     </table>

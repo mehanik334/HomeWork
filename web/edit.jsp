@@ -12,7 +12,7 @@
     <title>Edit</title>
 </head>
 <body>
-<h3>Введите новый пароль для <c:out value="${login}"/></h3>
+<h3>Введите новый пароль для <c:out value="${id}"/></h3>
 <form method="post">
     <label> Password:
         <input type="text" name="password"><br/><br/>

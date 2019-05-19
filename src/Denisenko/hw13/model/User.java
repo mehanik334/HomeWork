@@ -2,15 +2,25 @@ package denisenko.hw13.model;
 
 import denisenko.hw13.utils.HashUtils;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "login")
     private String login;
-    private String email;
+    @Column(name = "password")
     private String password;
+    @Column(name = "role")
     private Role role;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "salt")
     private String salt;
 
     public User() {

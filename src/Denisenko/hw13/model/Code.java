@@ -1,12 +1,23 @@
 package denisenko.hw13.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "codes")
 public class Code {
 
+    @OneToOne
+    @JoinColumn(name = "users_id")
     private Long userId;
+    @OneToOne
+    @JoinColumn(name = "goods_id")
     private Long goodId;
+    @Column(name = "value_code")
     private String value;
+
+    public Code() {
+    }
 
     public Code(Long userId, Long goodId, String value) {
         this.userId = userId;
