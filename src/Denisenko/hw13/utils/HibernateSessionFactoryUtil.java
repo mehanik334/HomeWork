@@ -3,6 +3,7 @@ package denisenko.hw13.utils;
 import denisenko.hw13.model.Code;
 import denisenko.hw13.model.Good;
 import denisenko.hw13.model.User;
+import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -10,6 +11,8 @@ import org.hibernate.cfg.Configuration;
 public class HibernateSessionFactoryUtil {
 
     private static SessionFactory sessionFactory;
+    private static final Logger LOGGER = Logger.getLogger(HibernateSessionFactoryUtil.class);
+
 
     private HibernateSessionFactoryUtil() {}
 
@@ -22,9 +25,9 @@ public class HibernateSessionFactoryUtil {
                 configuration.addAnnotatedClass(Code.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
-
+                LOGGER.debug("create session factory");
             } catch (Exception e) {
-                System.out.println("Исключение!" + e);
+                LOGGER.error("Исключение!" + e);
             }
         }
         return sessionFactory;
