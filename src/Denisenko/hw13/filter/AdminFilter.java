@@ -14,7 +14,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/admin"})
+@WebFilter(urlPatterns = {"/admin", "/addGood", "/deleteGood", "/delete", "/edit"})
 public class AdminFilter implements Filter {
 
     private static final Logger LOGGER = Logger.getLogger(AdminFilter.class);

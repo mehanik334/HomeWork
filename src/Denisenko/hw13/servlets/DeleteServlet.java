@@ -19,11 +19,11 @@ public class DeleteServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String message = "Пользователь успешно удален!!!";
-        String login = request.getParameter("login");
-        LOGGER.debug("Delete user" + login);
-        userDao.deleteUser(new User(login));
+        Long idUser = Long.parseLong(request.getParameter("id"));
+        LOGGER.debug("Delete user " + idUser);
+        userDao.deleteUser(idUser);
         request.setAttribute("message", message);
         LOGGER.debug("Forward to adminPage.jsp");
-        request.getRequestDispatcher("adminPage.jsp").forward(request, response);
+        request.getRequestDispatcher("/AdminServlet").forward(request, response);
     }
 }

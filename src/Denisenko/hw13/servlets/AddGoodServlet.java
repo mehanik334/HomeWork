@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet(value = "/goods")
-public class GoodsServlet extends HttpServlet {
-
-    private static final GoodDaoHibernateImpl goodDaoHibernate = new GoodDaoHibernateImpl();
+@WebServlet(value = "/addGood")
+public class AddGoodServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+        String nameGoodHtml = request.getParameter("nameGood");
+        String descriptionHtml = request.getParameter("description");
+        double priceHtml = Double.parseDouble(request.getParameter("price"));
+        GoodDaoHibernateImpl goodDaoHibernate = new GoodDaoHibernateImpl();
+        goodDaoHibernate.addGood(new Good(priceHtml, nameGoodHtml, descriptionHtml));
+        request.getRequestDispatcher("adminPage.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Good> allGoods = goodDaoHibernate.getAllGoods();
-        request.setAttribute("allGoods", allGoods);
-        request.getRequestDispatcher("marketPlace.jsp").forward(request, response);
+
     }
 }

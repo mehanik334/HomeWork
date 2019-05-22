@@ -53,12 +53,12 @@ public class GoodDao {
         return Optional.empty();
     }
 
-    public void updateGood(Good good, double newPrice) {
+    public void updateGood(Long id, double newPrice) {
         try {
             String sql = "UPDATE goods SET  price = ? WHERE id = ? ";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setDouble(1, newPrice);
-            preparedStatement.setLong(2, good.getId());
+            preparedStatement.setLong(2, id);
             preparedStatement.execute();
             LOGGER.debug(sql);
         } catch (SQLException e) {
@@ -66,11 +66,11 @@ public class GoodDao {
         }
     }
 
-    public void deleteGood(Good good) {
+    public void deleteGood(Long id) {
         try {
             String sql = "DELETE FROM goods WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, good.getId());
+            preparedStatement.setLong(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {
             LOGGER.error(e);

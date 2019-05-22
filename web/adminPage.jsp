@@ -26,10 +26,29 @@
                 <td><c:out value="${user.getLogin()}"/></td>
                 <td><c:out value="${user.getPassword()}"/></td>
                 <td><c:out value="${user.getRole().getValue()}"/></td>
-                <td><a href='edit?login=${user.getLogin()}'>edit</a></td>
-                <td><a href='delete?login=${user.getLogin()}'>delete</a></td>
+                <td><a href='edit?id=${user.getId()}'>edit</a></td>
+                <td><a href='delete?id=${user.getId()}'>delete</a></td>
             </tr>
         </c:forEach>
     </table>
+    <table border='2' width='100%'>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+        <c:forEach items="${allGoods}" var="good">
+            <tr>
+                <td><c:out value="${good.getName()}"/></td>
+                <td><c:out value="${good.getDescription()}"/></td>
+                <td><c:out value="${good.getPrice()}"/></td>
+                <td><a href='deleteGood?id=${good.getId()}'>delete</a></td>
+            </tr>
+        </c:forEach>
+    </table>
+    <form action="addGood.jsp">
+        <input type="submit" value="add good">
+    </form>
 </body>
 </html>
